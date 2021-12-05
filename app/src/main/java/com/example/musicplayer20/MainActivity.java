@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -34,7 +37,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
+        }
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
         listView = findViewById(R.id.listViewSong);
 
@@ -90,22 +100,21 @@ public class MainActivity extends AppCompatActivity {
             items[i] = mySongs.get(i).getName().toString().replace(".mp3", "").replace(".wav", "");
 
         }
-        /*ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
-        listView.setAdapter(myAdapter);*/
+
 
         customAdapter customAdapter = new customAdapter();
         listView.setAdapter(customAdapter);
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                String songName = (String) listView.getItemAtPosition(i);
-//                startActivity(new Intent(getApplicationContext(), PlayerActivity.class)
-//                        .putExtra("songs", mySongs)
-//                        .putExtra("songname", songName)
-//                        .putExtra("pos", i));
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String songName = (String) listView.getItemAtPosition(i);
+                startActivity(new Intent(getApplicationContext(), PlayerActivity.class)
+                        .putExtra("songs", mySongs)
+                        .putExtra("songname", songName)
+                        .putExtra("pos", i));
+            }
+        });
     }
 
 
