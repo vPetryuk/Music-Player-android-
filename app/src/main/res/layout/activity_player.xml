@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_img"
+    android:background="@drawable/background_imgws"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context=".PlayerActivity">
@@ -15,6 +15,7 @@
         android:layout_weight="7"
         android:gravity="center"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/txtsn"
             android:layout_margin="20dp"
@@ -34,9 +35,9 @@
 
         <ImageView
             android:id="@+id/imageview"
-            android:layout_marginBottom="8dp"
-            android:layout_width="250dp"
+            android:layout_width="344dp"
             android:layout_height="250dp"
+            android:layout_marginBottom="8dp"
             android:src="@drawable/muzix">
 
         </ImageView>
